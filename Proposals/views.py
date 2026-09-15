@@ -104,5 +104,6 @@ class ProposalViewset(viewsets.ModelViewSet):
                 )
 
             return Response(
-                {"status": "error","detail": str(exc),},status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                {"status": "error", "detail": "Proposal generation failed. Please retry."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )

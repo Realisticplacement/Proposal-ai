@@ -197,6 +197,24 @@ $env:DEBUG = "False"
 python manage.py check --deploy
 ```
 
+## Deploy to Vercel
+
+This repository includes `vercel.json` and `api/index.py` for Vercel's Python runtime. In the Vercel project settings, add the variables from `.env.example` and set:
+
+- `DEBUG=False`
+- `SECRET_KEY` to a long random value
+- `DATABASE_URL` to the production PostgreSQL connection string
+- `ALLOWED_HOSTS` to the Vercel hostname and any custom domain, comma-separated
+- `CSRF_TRUSTED_ORIGINS` to the full HTTPS origins, comma-separated
+
+Run migrations against the production database before using the API:
+
+```powershell
+python manage.py migrate
+```
+
+Vercel functions are stateless and have a read-only filesystem. Store uploaded documents in object storage before relying on document uploads in production; local filesystem uploads will not persist between invocations.
+
 ## Validation
 
 ```powershell
